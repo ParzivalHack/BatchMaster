@@ -1,2 +1,2 @@
 # BatchMaster
-Multi-purpose Batch tool for your Windows pc
+BatchMaster, the tool that sysadmins doesn't want you to have!
