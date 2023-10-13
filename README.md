@@ -1,2 +1,2 @@
 # BatchMaster
-BatchMaster, the tool that sysadmins doesn't want you to have!
+BatchMaster, the tool that helpdesk support doesn't want you to have!
