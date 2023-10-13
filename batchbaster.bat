@@ -40,14 +40,14 @@ set /p source="Enter the source file or directory: "
 set /p destination="Enter the destination directory: "
 
 echo Copying %source% to %destination%...
-rem Example: Copy specified files/directories
+rem Copy specified files/directories
 xcopy /s /e /i "%source%" "%destination%"
 pause
 goto menu
 
 :cleanup
 echo Cleaning up...
-rem Example: Delete temporary files
+rem Delete temporary files
 del /q /s "C:\Temp\*.*"
 
 echo Cleaning up DNS cache...
@@ -67,14 +67,14 @@ set /p source="Enter the source directory: "
 set /p destination="Enter the destination directory: "
 
 echo Synchronizing files from %source% to %destination%...
-rem Example: Synchronize specified files/directories
+rem Synchronize specified files/directories
 robocopy "%source%" "%destination%" /MIR
 pause
 goto menu
 
 :update
 echo Checking for software updates...
-rem Example: Check for updates using Windows Update
+rem Check for updates using Windows Update
 wuauclt /detectnow
 pause
 goto menu
@@ -113,19 +113,19 @@ goto menu
 :diagnostics
 echo Running network diagnostics...
 
-rem Example: Display IP configuration
+rem Display IP configuration
 ipconfig /all
 
-rem Example: Check connectivity by pinging Google
-ping google.com
+rem Check connectivity by pinging Google
+ping www.google.com
 
-rem Example: Display routing table
+rem Display routing table
 route print
 
-rem Example: Show active network connections
+rem Show active network connections
 netstat -ano
 
-rem Example: Display ARP table
+rem Display ARP table
 arp -a
 
 pause
@@ -133,7 +133,7 @@ goto menu
 
 :monitor
 echo Monitoring system resources...
-rem Example: List running processes
+rem List running processes
 tasklist
 pause
 goto menu
