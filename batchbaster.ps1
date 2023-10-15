@@ -12,7 +12,8 @@ function Show-Menu {
     Write-Host "9. Event Log Viewer"
     Write-Host "10. Remote Desktop Control"
     Write-Host "11. Performance Optimization"
-    Write-Host "12. Quit"
+    Write-Host "12. Network Speed Test"
+    Write-Host "13. Quit"
     $choice = Read-Host "Enter the option number"
 
     switch ($choice) {
@@ -27,7 +28,8 @@ function Show-Menu {
         "9" { EventLog }
         "10" { RemoteControl }
         "11" { PerformanceOptimization }
-        "12" { exit }
+        "12" { NetworkSpeedTest }
+        "13" { exit }
         Default { Show-Menu }
     }
 }
@@ -87,13 +89,25 @@ function ScheduledShutdown {
     $shutdownchoice = Read-Host "Enter the option number"
 
     switch ($shutdownchoice) {
-        "1" { shutdown /s /f /t 1800 }
-        "2" { shutdown /s /f /t 3600 }
-        "3" { shutdown /s /f /t 7200 }
-        "4" { shutdown /s /f /t 21600 }
-        "5" { shutdown /s /f /t 43200 }
+        "1" { ScheduleShutdown 30 }
+        "2" { ScheduleShutdown 60 }
+        "3" { ScheduleShutdown 120 }
+        "4" { ScheduleShutdown 360 }
+        "5" { ScheduleShutdown 720 }
         Default { Show-Menu }
     }
+}
+
+function ScheduleShutdown {
+    param (
+        [int] $minutes
+    )
+
+    Write-Host "Scheduling a shutdown in $minutes minutes..."
+    # Schedule a system shutdown in the specified minutes
+    shutdown /s /f /t ($minutes * 60)
+    Read-Host "Press Enter to continue..."
+    Show-Menu
 }
 
 function NetworkDiagnostics {
@@ -166,6 +180,25 @@ function PerformanceOptimization {
 
     # Adjust power settings for better performance
     powercfg /setactive scheme_min
+
+    Read-Host "Press Enter to continue..."
+    Show-Menu
+}
+
+function NetworkSpeedTest {
+    Write-Host "Running network speed test..."
+
+    $targetHost = "www.google.com"  # You can change the target host if needed
+    $result = Test-Connection -ComputerName $targetHost -Count 10
+
+    Write-Host "Network Speed Test Results:"
+    Write-Host "Average Response Time (ms): $($($result.ResponseTime | Measure-Object -Average).Average)"
+    
+    $totalPacketsSent = $result.PSComputerName.Count
+    $totalPacketsReceived = ($result | Where-Object ResponseTime -ne $null).PSComputerName.Count
+    $packetLossPercentage = (($totalPacketsSent - $totalPacketsReceived) / $totalPacketsSent) * 100
+
+    Write-Host "Packet Loss (%): $packetLossPercentage"
 
     Read-Host "Press Enter to continue..."
     Show-Menu
